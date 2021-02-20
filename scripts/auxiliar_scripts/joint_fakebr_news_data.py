@@ -24,7 +24,10 @@ def join_information(path_dir=None,last_idx=0,label=None):
             file_meta_information = open(f"{path_dir}/{meta_list[i]}",'r')
             reader_meta_information = file_meta_information.readlines()
             reader_meta_information = process_meta_information(reader_meta_information)
-            writed_as_csv_line = f"{counter_idx},{meta_list[i]},{label},{reader_meta_information[1]},{reader_meta_information[4]},{reader_meta_information[9]},{reader_meta_information[10]},{reader_meta_information[12]},{reader_meta_information[15]},{reader_meta_information[16]},{reader_meta_information[17]},{reader_meta_information[22]},{reader_meta_information[23]},{reader_meta_information[24]}\n"
+            writed_as_csv_line = f"{counter_idx},{meta_list[i]},{label},{reader_meta_information[1]}"
+            for i in range(4,25):
+                writed_as_csv_line += f",{reader_meta_information[i]}"
+            writed_as_csv_line += '\n'
             counter_idx += 1
             file_meta_information.close()
             out_file.write(writed_as_csv_line)
