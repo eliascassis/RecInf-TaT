@@ -1,7 +1,6 @@
 ### Imports 
 from pandas import read_json
 import os
-from os import mkdir
 from shutil import rmtree
 from whoosh.index import create_in
 from whoosh.fields import NUMERIC,TEXT,Schema
