@@ -1,5 +1,6 @@
 /* CSS  */
 
+/* Search bar styles */
 .material-icons{
     font-size:160%;
 }
@@ -11,4 +12,21 @@
 #search-bar{
     width: 70%;
     margin:auto;
+}
+
+/* Card styles */
+.background-success{
+    background-color: #03a678 !important;
+}
+
+.background-danger{
+    background-color: #f59297 !important;
+}
+
+.bd-success{
+    border-color: #03a678 !important;
+}
+
+.bd-danger{
+    border-color: #f59297 !important;
 }
