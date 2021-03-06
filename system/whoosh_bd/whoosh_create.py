@@ -8,7 +8,7 @@ from whoosh.analysis import StemmingAnalyzer
 
 ### Functions
 ## Function to create the db
-def createDB(db_name,schema):
+def create_DB(db_name,schema):
     if os.path.exists(db_name):
         rmtree(db_name)
     os.mkdir(db_name)
@@ -16,19 +16,22 @@ def createDB(db_name,schema):
     return ix
 
 ## Registers the docs
-def registerDocs(ix,documents):
+def register_docs(ix,documents):
     writer = ix.writer()
     for index, row in documents.iterrows():
-        writer.add_document(index=row['index'], link=row['link'], category=row['category'], date=row['date of publication'], veracity=row['veracity'], falsity=row['falsity'], label=row['label'], full_text=u"{}".format(row['full text']))
+        writer.add_document(index=row['index'], link=row['link'], category=row['category'],\
+                            date=row['date of publication'], veracity=row['veracity'],\
+                            falsity=row['falsity'], label=row['label'],\
+                            full_text=u"{}".format(row['full text']))
     writer.commit()
-    return getDocCount(ix)
+    return get_doc_count(ix)
 
 ## Count registered docs
-def getDocCount(ix):
+def get_doc_count(ix):
     searcher = ix.searcher()
-    docsLength = searcher.doc_count()
+    docs_length = searcher.doc_count()
     searcher.close()    
-    return docsLength
+    return docs_length
 
 # db name
 db_name = "news_index_dir"
@@ -44,11 +47,11 @@ schema = Schema(index=NUMERIC(stored=True),
                 full_text=TEXT(analyzer=StemmingAnalyzer(stoplist=None),stored=True))
 
 # Creates the db
-ix = createDB(db_name,schema)
+ix = create_DB(db_name,schema)
 
 # Reads the data
 data = read_json('../../data/json_whoosh_analysis.json')
 
 # Registers the documents
-docs_length = registerDocs(ix, data)
+docs_length = register_docs(ix, data)
 print(f"OK! The {docs_length} documents was registered!")
