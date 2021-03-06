@@ -1,10 +1,8 @@
 ### Imports
 import os
 from whoosh import index
-from whoosh.qparser import QueryParser,OrGroup
+from whoosh.qparser import OrGroup
 from whoosh.qparser import MultifieldParser
-from whoosh.analysis import StemmingAnalyzer
-from pandas import DataFrame
 
 ## Function
 # Returns db to search
@@ -33,15 +31,6 @@ def search(searchText, limit=10, ix=None, textIndex=None, analizer=None):
         results = searcher.search(query, limit=limit)
         return results
 
-# Gets the db
-# ix = return_search_index()
-
-# Set searcher to query
-# searcher = None
-
-# # Searches for query
-# results = search(u"lula é acusado de corrupção pela lava jato",ix=ix,analizer=StemmingAnalyzer())
-
 # Fechamento da busca
 def search_close():
     global searcher
@@ -66,7 +55,9 @@ def get_results(results_list):
     results_true = [true_hit for true_hit in results[0]]
     results_fake = [fake_hit for fake_hit in results[1]]
     results_fake.sort(key=lambda x: x['veracity'], reverse=True)
-    true_df = DataFrame(results_true)
-    fake_df = DataFrame(results_fake) 
-    new_df = true_df.append(fake_df,ignore_index=True)
-    return new_df
+    merged_results = []
+    for result in results_true:
+        merged_results.append(result)
+    for result in results_fake:
+        merged_results.append(result)
+    return merged_results
