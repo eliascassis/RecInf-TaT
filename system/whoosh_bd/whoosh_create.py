@@ -19,7 +19,7 @@ def createDB(db_name,schema):
 def registerDocs(ix,documents):
     writer = ix.writer()
     for index, row in documents.iterrows():
-        writer.add_document(index=row['index'], link=row['link'], category=row['category'], date=row['date of publication'], veracity=row['veracity'], label=row['label'], full_text=u"{}".format(row['full text']))
+        writer.add_document(index=row['index'], link=row['link'], category=row['category'], date=row['date of publication'], veracity=row['veracity'], falsity=row['falsity'], label=row['label'], full_text=u"{}".format(row['full text']))
     writer.commit()
     return getDocCount(ix)
 
@@ -39,6 +39,7 @@ schema = Schema(index=NUMERIC(stored=True),
                 category=TEXT(analyzer=None,stored=True),
                 date=TEXT(analyzer=None,stored=True),
                 veracity=NUMERIC(stored=True),
+                falsity=NUMERIC(stored=True),
                 label=NUMERIC(stored=True),
                 full_text=TEXT(analyzer=StemmingAnalyzer(stoplist=None),stored=True))
 
