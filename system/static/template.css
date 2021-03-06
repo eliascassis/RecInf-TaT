@@ -16,3 +16,15 @@
     color: #aaa;
 } */
 
+.material-icons{
+    font-size:160%;
+}
+
+#search-button{
+    padding: .375rem .75rem .20rem .75rem !important;
+}
+
+#search-bar{
+    width: 70%;
+    margin:auto;
+}
