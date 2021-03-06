@@ -22,9 +22,13 @@ def get_whoosh_documents():
         searcher = None
         ix = return_search_index()
         results = search(query,ix=ix,analizer=StemmingAnalyzer())
-        results = get_results(results)
+        if results:
+            results = get_results(results)
+            myString = 'answers.html'
+        else:
+            myString = 'invalid_query.html'
         search_close()
-        myString = 'answers.html'
+        
     else:
         myString = 'waiting.html'
         results = None
